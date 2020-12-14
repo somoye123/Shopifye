@@ -1,6 +1,5 @@
 import React from "react";
 import { render } from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
 import "./index.css";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { Provider as ReduxProvider } from "react-redux";
@@ -16,9 +15,7 @@ const store = ConfigureStore({
 render(
   <React.StrictMode>
     <ReduxProvider store={store}>
-      <Router>
         <App />
-      </Router>
     </ReduxProvider>
   </React.StrictMode>,
   document.getElementById("root")
