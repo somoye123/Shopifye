@@ -6,12 +6,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import App from "./App";
 import ConfigureStore from "./redux/configureStore";
 
-const store = ConfigureStore({
-  Cart: "cart context",
-  Fliter: "filter context",
-  Products: "products context",
-  User: "user context",
-});
+const store = ConfigureStore();
 render(
   <React.StrictMode>
     <ReduxProvider store={store}>
