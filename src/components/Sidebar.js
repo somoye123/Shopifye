@@ -8,7 +8,32 @@ import { links } from '../utils/constants';
 import CartButtons from './CartButtons';
 import { useUserContext } from '../context/user_context';
 
-const Sidebar = () => <h4>sidebar</h4>;
+const Sidebar = () => {
+  const isOpen = true;
+  return (
+    <SidebarContainer>
+      <aside className={`${isOpen ? 'sidebar show-sidebar' : 'sidebar'}`}>
+        <div className='sidebar-header'>
+          <img src={logo} alt='shopifye' />
+          <button className='close-btn' type='button'>
+            <FaTimes />
+          </button>
+        </div>
+        <ul className='links'>
+          {links.map(({ id, url, text }) => (
+            <li key={id}>
+              <Link to={url}>{text}</Link>
+            </li>
+          ))}
+          <li>
+            <Link to='/checkout'>Checkout</Link>
+          </li>
+        </ul>
+        <CartButtons />
+      </aside>
+    </SidebarContainer>
+  )
+}
 
 const SidebarContainer = styled.div`
   text-align: center;
