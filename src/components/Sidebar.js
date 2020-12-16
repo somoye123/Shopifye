@@ -1,39 +1,41 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { FaTimes } from 'react-icons/fa';
-import styled from 'styled-components';
-import logo from '../assets/logo.svg';
-import { useProductsContext } from '../context/products_context';
-import { links } from '../utils/constants';
-import CartButtons from './CartButtons';
-import { useUserContext } from '../context/user_context';
-
-const Sidebar = () => {
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { FaTimes } from "react-icons/fa";
+import styled from "styled-components";
+import logo from "../assets/logo.svg";
+import { useProductsContext } from "../context/products_context";
+import { links } from "../utils/constants";
+import CartButtons from "./CartButtons";
+import { useUserContext } from "../context/user_context";
+import { sideBarClose } from "../redux/actions/sideBarAction";
+const Sidebar = ({ sideBarClose, SideBar }) => {
   const isOpen = true;
+  console.log(SideBar);
   return (
     <SidebarContainer>
-      <aside className={`${isOpen ? 'sidebar show-sidebar' : 'sidebar'}`}>
-        <div className='sidebar-header'>
-          <img src={logo} alt='shopifye' />
-          <button className='close-btn' type='button'>
+      <aside className={`${isOpen ? "sidebar show-sidebar" : "sidebar"}`}>
+        <div className="sidebar-header">
+          <img src={logo} alt="shopifye" />
+          <button className="close-btn" type="button">
             <FaTimes />
           </button>
         </div>
-        <ul className='links'>
+        <ul className="links">
           {links.map(({ id, url, text }) => (
             <li key={id}>
               <Link to={url}>{text}</Link>
             </li>
           ))}
           <li>
-            <Link to='/checkout'>Checkout</Link>
+            <Link to="/checkout">Checkout</Link>
           </li>
         </ul>
         <CartButtons />
       </aside>
     </SidebarContainer>
-  )
-}
+  );
+};
 
 const SidebarContainer = styled.div`
   text-align: center;
@@ -106,4 +108,8 @@ const SidebarContainer = styled.div`
   }
 `;
 
-export default Sidebar;
+const mapStateToProps = ({ SideBar }) => ({ SideBar });
+
+const mapDispatchToProps = { sideBarClose };
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);
