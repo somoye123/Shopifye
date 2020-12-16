@@ -9,33 +9,33 @@ import { links } from "../utils/constants";
 import CartButtons from "./CartButtons";
 import { useUserContext } from "../context/user_context";
 import { sideBarClose } from "../redux/actions/sideBarAction";
-const Sidebar = ({ sideBarClose, SideBar }) => {
-  const isOpen = true;
-  console.log(SideBar);
-  return (
-    <SidebarContainer>
-      <aside className={`${isOpen ? "sidebar show-sidebar" : "sidebar"}`}>
-        <div className="sidebar-header">
-          <img src={logo} alt="shopifye" />
-          <button className="close-btn" type="button">
-            <FaTimes />
-          </button>
-        </div>
-        <ul className="links">
-          {links.map(({ id, url, text }) => (
-            <li key={id}>
-              <Link to={url}>{text}</Link>
-            </li>
-          ))}
-          <li>
-            <Link to="/checkout">Checkout</Link>
+const Sidebar = ({ sideBarClose, SideBar }) => (
+  <SidebarContainer>
+    <aside className={`${SideBar ? "sidebar show-sidebar" : "sidebar"}`}>
+      <div className="sidebar-header">
+        <img src={logo} alt="shopifye" />
+        <button className="close-btn" type="button" onClick={sideBarClose}>
+          <FaTimes />
+        </button>
+      </div>
+      <ul className="links">
+        {links.map(({ id, url, text }) => (
+          <li key={id}>
+            <Link to={url} onClick={sideBarClose}>
+              {text}
+            </Link>
           </li>
-        </ul>
-        <CartButtons />
-      </aside>
-    </SidebarContainer>
-  );
-};
+        ))}
+        <li>
+          <Link to="/checkout" onClick={sideBarClose}>
+            Checkout
+          </Link>
+        </li>
+      </ul>
+      <CartButtons />
+    </aside>
+  </SidebarContainer>
+);
 
 const SidebarContainer = styled.div`
   text-align: center;
