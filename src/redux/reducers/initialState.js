@@ -3,4 +3,5 @@ export default {
   fliter: {},
   products: {},
   user: "",
+  SideBar: false,
 };
