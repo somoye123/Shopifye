@@ -17,7 +17,7 @@ const Nav = ({ sideBarOpen }) => (
         <Link to="/">
           <img src={logo} alt="shopifye" />
         </Link>
-        <button type="button" className="nav-toggle">
+        <button type="button" className="nav-toggle" onClick={sideBarOpen}>
           <FaBars />
         </button>
       </div>
