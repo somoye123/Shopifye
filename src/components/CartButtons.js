@@ -1,25 +1,27 @@
-import React from 'react'
-import { FaShoppingCart, FaUserMinus, FaUserPlus } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
-import { useProductsContext } from '../context/products_context'
-import { useCartContext } from '../context/cart_context'
-import { useUserContext } from '../context/user_context'
+import React from "react";
+import { connect } from "react-redux";
+import { FaShoppingCart, FaUserMinus, FaUserPlus } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { useProductsContext } from "../context/products_context";
+import { useCartContext } from "../context/cart_context";
+import { useUserContext } from "../context/user_context";
+import { sideBarClose } from "../redux/actions/sideBarAction";
 
-const CartButtons = () => (
-  <Wrapper className='cart-btn-wrapper'>
-    <Link to='/cart' className='cart-btn'>
+const CartButtons = ({ sideBarClose }) => (
+  <Wrapper className="cart-btn-wrapper">
+    <Link to="/cart" className="cart-btn" onClick={sideBarClose}>
       Cart
-      <span className='cart-container'>
+      <span className="cart-container">
         <FaShoppingCart />
-        <span className='cart-value'>12</span>
+        <span className="cart-value">12</span>
       </span>
     </Link>
-    <button type='button' className='auth-btn'>
+    <button type="button" className="auth-btn">
       Login <FaUserPlus />
     </button>
   </Wrapper>
-)
+);
 
 const Wrapper = styled.div`
   display: grid;
@@ -73,5 +75,8 @@ const Wrapper = styled.div`
       margin-left: 5px;
     }
   }
-`
-export default CartButtons
+`;
+
+const mapDispatchToProps = { sideBarClose };
+
+export default connect(null, mapDispatchToProps)(CartButtons);
