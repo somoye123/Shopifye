@@ -1,5 +1,9 @@
-import React from 'react';
+import React from 'react'
 
-const Loading = () => <h4>loading element</h4>;
+const Loading = () => (
+  <div className='section section-center'>
+    <div className='loading'></div>
+  </div>
+)
 
-export default Loading;
+export default Loading
