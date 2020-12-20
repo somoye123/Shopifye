@@ -1,7 +1,12 @@
 export default {
   cart: {},
   fliter: {},
-  products: {},
-  user: "",
+  products: {
+    products_loading: false,
+    products_error: false,
+    products: [],
+    featured_products: [],
+  },
+  user: '',
   SideBar: false,
 };
