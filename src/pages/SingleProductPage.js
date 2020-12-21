@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { useParams, useHistory, Link } from 'react-router-dom';
-import styled from 'styled-components';
-import { single_product_url as url } from '../utils/constants';
-import { formatPrice } from '../utils/helpers';
-import { fetchSingleProduct } from '../redux/actions/productsAction';
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { useParams, useHistory, Link } from 'react-router-dom'
+import styled from 'styled-components'
+import { single_product_url as url } from '../utils/constants'
+import { formatPrice } from '../utils/helpers'
+import { fetchSingleProduct } from '../redux/actions/productsAction'
 
 import {
   Loading,
@@ -13,36 +13,83 @@ import {
   AddToCart,
   Stars,
   PageHero,
-} from '../components';
+} from '../components'
 
 const SingleProductPage = ({ Products, fetchSingleProduct }) => {
-  const { id } = useParams();
-  const history = useHistory();
+  const { id } = useParams()
+  const history = useHistory()
 
   const {
     single_product_loading: loading,
     single_product_error: error,
     single_product: product,
-  } = Products;
+  } = Products
 
   useEffect(() => {
     if (error) {
       return setTimeout(() => {
-        history.push('/');
-      }, 3000);
+        history.push('/')
+      }, 3000)
     }
-    fetchSingleProduct(`${url}${id}`);
-  }, [id, error]);
+    fetchSingleProduct(`${url}${id}`)
+  }, [id, error])
 
   if (loading) {
-    return <Loading />;
+    return <Loading />
   }
   if (error) {
-    return <Error />;
+    return <Error />
   }
 
-  return <h1>somoye</h1>;
-};
+  const {
+    name,
+    price,
+    description,
+    stock,
+    stars,
+    reviews,
+    id: sku,
+    company,
+    images,
+  } = product
+  return (
+    <Wrapper>
+      {' '}
+      <PageHero title={name} product />{' '}
+      <div className='section section-center page'>
+        {' '}
+        <Link to='/products' className='btn'>
+          {' '}
+          back to products{' '}
+        </Link>{' '}
+        <div className=' product-center'>
+          {' '}
+          <ProductImages images={images} />{' '}
+          <section className='content'>
+            {' '}
+            <h2>{name}</h2> <Stars stars={stars} reviews={reviews} />{' '}
+            <h5 className='price'> {formatPrice(price)}</h5>{' '}
+            <p className='desc'> {description}</p>{' '}
+            <p className='info'>
+              {' '}
+              <span>Available : </span>{' '}
+              {stock > 0 ? 'In stock' : 'out of stock'}{' '}
+            </p>{' '}
+            <p className='info'>
+              {' '}
+              <span>SKU : </span> {sku}{' '}
+            </p>{' '}
+            <p className='info'>
+              {' '}
+              <span>Brand : </span> {company}{' '}
+            </p>{' '}
+            <hr /> {stock > 0 && <AddToCart product={product} />}{' '}
+          </section>{' '}
+        </div>{' '}
+      </div>{' '}
+    </Wrapper>
+  )
+}
 
 const Wrapper = styled.main`
   .product-center {
@@ -76,12 +123,12 @@ const Wrapper = styled.main`
       font-size: 1.25rem;
     }
   }
-`;
+`
 
-const mapStateToProps = ({ Products }) => ({ Products });
+const mapStateToProps = ({ Products }) => ({ Products })
 
 const mapDispatchToProps = (dispatch) => ({
   fetchSingleProduct: (url) => dispatch(fetchSingleProduct(url)),
-});
+})
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleProductPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProductPage)
