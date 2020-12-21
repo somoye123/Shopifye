@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useProductsContext } from '../context/products_context';
@@ -49,4 +50,6 @@ const Wrapper = styled.main`
   }
 `;
 
-export default SingleProductPage;
+const mapStateToProps = ({ Products }) => ({ Products });
+
+export default connect(mapStateToProps)(SingleProductPage);
