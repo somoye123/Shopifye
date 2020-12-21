@@ -11,3 +11,14 @@ export const fetchProducts = async () => {
     return error
   }
 }
+
+export const fetchSingleProduct = async (url) => {
+  try {
+    const data = await fetch(url)
+    const response = await handleResponse(data)
+    return response
+  } catch (err) {
+    const error = handleError(err)
+    return error
+  }
+}
