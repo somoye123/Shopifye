@@ -17,6 +17,24 @@ export default (state = initialState.products, action) => {
       };
     case types.GET_PRODUCTS_ERROR:
       return { ...state, products_loading: false, products_error: true };
+    case types.GET_SINGLE_PRODUCT_BEGIN:
+      return {
+        ...state,
+        single_product_loading: true,
+        single_product_error: false,
+      };
+    case types.GET_SINGLE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        single_product_loading: false,
+        single_product: singleProduct,
+      };
+    case types.GET_SINGLE_PRODUCT_ERROR:
+      return {
+        ...state,
+        single_product_loading: false,
+        single_product_error: true,
+      };
     default:
       return state;
   }
