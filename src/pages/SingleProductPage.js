@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams, useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { useProductsContext } from '../context/products_context';
 import { single_product_url as url } from '../utils/constants';
 import { formatPrice } from '../utils/helpers';
+import { fetchSingleProduct } from '../redux/actions/productsAction';
+
 import {
   Loading,
   Error,
@@ -14,7 +15,34 @@ import {
   PageHero,
 } from '../components';
 
-const SingleProductPage = () => <h4>single product page</h4>;
+const SingleProductPage = ({ Products, fetchSingleProduct }) => {
+  const { id } = useParams();
+  const history = useHistory();
+
+  const {
+    single_product_loading: loading,
+    single_product_error: error,
+    single_product: product,
+  } = Products;
+
+  useEffect(() => {
+    if (error) {
+      return setTimeout(() => {
+        history.push('/');
+      }, 3000);
+    }
+    fetchSingleProduct(`${url}${id}`);
+  }, [id, error]);
+
+  if (loading) {
+    return <Loading />;
+  }
+  if (error) {
+    return <Error />;
+  }
+
+  return <h1>somoye</h1>;
+};
 
 const Wrapper = styled.main`
   .product-center {
@@ -52,4 +80,8 @@ const Wrapper = styled.main`
 
 const mapStateToProps = ({ Products }) => ({ Products });
 
-export default connect(mapStateToProps)(SingleProductPage);
+const mapDispatchToProps = (dispatch) => ({
+  fetchSingleProduct: (url) => dispatch(fetchSingleProduct(url)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleProductPage);
