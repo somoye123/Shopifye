@@ -27,7 +27,7 @@ export default (state = initialState.products, action) => {
       return {
         ...state,
         single_product_loading: false,
-        single_product: singleProduct,
+        single_product: action.singleProduct,
       };
     case types.GET_SINGLE_PRODUCT_ERROR:
       return {
